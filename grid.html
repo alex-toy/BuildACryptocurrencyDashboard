@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Getting Started with Kendo UI for jQuery</title>
+
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/themes/10.0.1/default/default-main.css" />
+
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2024.4.1112/js/kendo.all.min.js"></script>
+    <script src="orderData.js"></script>
+  </head>
+  <body>
+
+    <div id="ordersGrid"></div>
+
+    <script>
+      $(function() {
+
+        var gridDataSource = new kendo.data.DataSource({
+          data: orderData,
+          schema: {
+            model: {
+              fields: {
+                OrderID: { type: "number" },
+                Freight: { type: "number" },
+                OrderDate: { type: "date" },
+                ShipCountry: { type: "string" },
+                ShipCity: { type: "string" }
+              }
+            }
+          },
+          pageSize: 10,
+          sort: {
+            field: "OrderDate",
+            dir: "desc"
+          }
+        });  
+
+
+        $("#ordersGrid").kendoGrid({
+          dataSource: gridDataSource,          
+          height: 400,
+          pageable: true,
+          sortable: true,
+          filterable: true,
+          columns: [{
+            field:"OrderID",
+            title: "Order ID",
+            width: 160
+          }, {
+            field: "OrderDate",
+            title: "Order Date",
+            width: 200,
+            format: "{0:dd MMMM yyyy}"
+          }, {
+            field: "ShipCountry",
+            title: "Ship Country"
+          }, {
+            field: "ShipCity",
+            title: "Ship City"
+          }]
+        });
+      });
+
+    </script>
+  </body>
+</html>
